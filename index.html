@@ -13,7 +13,7 @@ var AR-VideoScreen
 AFRAME.registerComponent('markerhandler', {
 
   init: function() {
-
+	alert('called');
     // Set up the tick throttling. Will check if marker is active every 500ms
     this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
   },
