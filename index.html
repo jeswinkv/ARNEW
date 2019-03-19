@@ -2,40 +2,81 @@
 <!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
 <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
-<script src="https://jeswin.neocities.org/event.js"></script>
-<body style='margin : 0px; overflow: hidden;'>
-	<a-scene embedded arjs='sourceType: webcam;debugUIEnabled: false;trackingMethod: best;'>
-		<a-assets>
-			<img id="button1" src="wearables.png" onclick="alert('hi');">
-			<img id="button2" src="analytics.png">
-			<img id="button3" src="iot.png">
-		</a-assets>
-		
-		
-		<a-text color="#FFF" 
-		      position='1.5 0 0' 
-		      rotation="-90 0 0" 
-		      width="7" 
-		      line-height="20"
-		      font="https://cdn.aframe.io/fonts/Exo2Bold.fnt" 
-		      value="Hello, welcome to the AR powered b-card by IBS! \n 
-		             Please select a video to watch:">
-		</a-text>
-		
-		
-		<a-plane clickhandler1 emitevents="true" cursor="rayOrigin: mouse" src="#button1" height="0.675" width="1.5" position='2.5 0 1' rotation="-90 0 0" ></a-plane>
-		<a-plane src="#button2" height="0.675" width="1.5" position='4.5 0 1' rotation="-90 0 0" ></a-plane>
-		<a-plane src="#button3" height="0.675" width="1.5" position='6.5 0 1' rotation="-90 0 0" ></a-plane>
-		
-		
-		<a-video src="video1.mp4" width="2" height="1.125" rotation="-90 0 0" position='3 0 3' transparent='true'></a-video>
-		
-		<!--<a-plane position='2.5 0 0' rotation="-90 0 0" height="2.5" width="5" color="#808080"></a-plane>
-		<a-plane color="#FFF" height="1" width="1" position='1 -1 1' rotation="-90 0 0" ></a-plane>
-		<a-video src="video.mp4" rotation="-90 0 0" position='1 0 0' transparent='true'></a-video>-->
-		<a-marker-camera preset='kanji'></a-marker-camera>
-		<!--<a-marker type='pattern' url='https://192.168.0.100:8443/AR/pattern-marker.patt'></a-marker>-->
 
-	</a-scene>
+<script>
+
+var scene
+var AR-Object01
+var AR-Object02
+var AR-VideoScreen
+
+AFRAME.registerComponent('markerhandler', {
+
+  init: function() {
+
+    // Set up the tick throttling. Will check if marker is active every 500ms
+    this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+  },
+
+  tick: function(t, dt) {
+
+    if (document.querySelector("#hiroMarker").object3D.visible == true && playing == false) {
+      // MARKER IS PRESENT
+      //alert("MARKER IS PRESENT")
+
+  		scene = document.querySelector('#a-scene');
+  	  AR-Object01 = document.querySelector('#Object01');
+    	AR-Object02 = document.querySelector('#Object02');
+      AR-VideoScreen =  document.querySelector('#videoScreen');
+
+      AR-Object01.addEventListener('click', function () { console.log("object01 clickable in AR") });
+      AR-Object02.addEventListener('click', function () { console.log("object02 clickable in AR") });
+      videoScreen.addEventListener('click', function () { playPauseVideo(); console.log("Video Play Toggle") });
+      playing = true;
+
+    }
+
+    }else {
+      // MARKER IS HIDDEN, do nothing (up to you)
+    }
+
+});
+
+function playPauseVideo(){
+
+if (video.paused)
+    video.play();
+  else
+    video.pause();
+}
+
+
+</script>
+
+
+<body style='margin : 0px; overflow: hidden;'>
+<a-scene id="a-scene" cursor="rayOrigin: mouse" embedded arjs="sourceType:webcam; maxDetectionRate:30; debugUiEnabled:false;">
+
+      <a-assets>
+
+      <video id="video" loop="true" src="video1.mp4" webkit-playsinline>
+
+   </a-assets>
+
+   <a-marker preset='kanji' markerhandler emitevents="true" id="hiroMarker">
+
+
+    <a-entity id="AR-Object01" (info about this object)></a-entity>
+    <a-entity id="AR-Object02" (info about this object)></a-entity>
+
+    <a-video id="videoScreen" src="#video" width="4" height="2.25" autoplay=true></a-video>
+
+
+   </a-marker>
+
+<a-entity camera></a-entity>
+
+  </a-scene>
+
 </body>
 </html>
