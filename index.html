@@ -15,6 +15,7 @@ AFRAME.registerComponent('markerhandler', {
   init: function() {
 
     // Set up the tick throttling. Will check if marker is active every 500ms
+	alert('called');
     this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
   },
 
