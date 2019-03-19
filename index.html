@@ -55,7 +55,7 @@ if (video.paused)
 </script>
 
 
-<body style='margin : 0px; overflow: hidden;' onclick="alert('here1');">
+<body style='margin : 0px; overflow: hidden;' onload="alert('here1');">
 <a-scene id="a-scene" cursor="rayOrigin: mouse" embedded arjs='sourceType: webcam;debugUIEnabled: false;trackingMethod: best;'>
 
       <a-assets>
@@ -70,7 +70,7 @@ if (video.paused)
     <a-entity id="AR-Object01" (info about this object)></a-entity>
     <a-entity id="AR-Object02" (info about this object)></a-entity>
 
-    <div onclick="alert('here2');"><a-video id="videoScreen" src="#video" width="4" height="2.25" rotation="-90 0 0" position='3 0 3' autoplay="true"></a-video></div>
+    <a-video id="videoScreen" src="#video" width="4" height="2.25" rotation="-90 0 0" position='3 0 3' autoplay="true"></a-video>
 
 
    </a-marker>
