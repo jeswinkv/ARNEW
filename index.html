@@ -1,51 +1,81 @@
-<html>
-<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
+<!DOCTYPE html>
 <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
-
-<script language="javascript">
-
-function setupFeatures(){
-	alert('here4');
-	var AR-VideoScreen =  document.querySelector('#videoScreen');
-	alert(AR-VideoScreen);
-}
-
-function playPauseVideo(){
-
-if (video.paused)
-    video.play();
-  else
-    video.pause();
-}
-
-
+<!-- Register an aframe component that allows reacting to marker events -->
+<script>
+	AFRAME.registerComponent('registerevents', {
+		init: function () {
+			var marker = this.el;
+			console.log('registered1');
+			//entity1
+			var arentity1 =  document.querySelector('#entity1');
+			//arentity1.onclick = function() { alert('blah'); };
+			arentity1.addEventListener('click', function (evt) { console.log('clicked'); document.querySelector('#video1').play(); });
+		}
+	});
 </script>
 
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 
-<body style='margin : 0px; overflow: hidden;' onload="alert('herere1');setupFeatures();">
-<a-scene id="a-scene" cursor="rayOrigin: mouse" embedded arjs='sourceType: webcam;debugUIEnabled: false;trackingMethod: best;'>
+	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
+	
+		<a-assets>
+			<img id="button1" src="wearables.png">
+			<img id="button2" src="analytics.png">
+			<img id="button3" src="iot.png">
+			<video id="video1" src="video1.mp4"></video>
+		</a-assets>
+		
 
-      <a-assets>
+		<a-marker preset='kanji' id='marker-hiro' registerevents cursor="rayOrigin: mouse" emitevents="true">
+		
+			<a-text color="#FFF" 
+				  position='1.5 0 -3' 
+				  rotation="-90 0 0" 
+				  width="8" 
+				  line-height="25"
+				  font="https://cdn.aframe.io/fonts/Exo2Bold.fnt" 
+				  value="Hello, this is an AR enabled B-card from IBS! \n 
+						 Please click on a button to watch the video:">
+			</a-text>		
+			
+			<a-entity 
+				id="entity1" 
+				geometry="primitive: plane; width: 3; height:1.5;" 
+				material="src:#button1;side: double" 
+				position='3 0 -1.5' 
+				rotation="-90 0 0" >
+			</a-entity>
+			
+			<a-entity 
+				id="entity2" 
+				geometry="primitive: plane; width: 3; height:1.5;" 
+				material="src:#button2;side: double" 
+				position='6.5 0 -1.5' 
+				rotation="-90 0 0" >
+			</a-entity>
+			
+			<a-entity 
+				id="entity3" 
+				geometry="primitive: plane; width: 3; height:1.5;" 
+				material="src:#button3;side: double" 
+				position='10 0 -1.5' 
+				rotation="-90 0 0" >
+			</a-entity>
+			
+			<a-video 
+				id="videoScreen" 
+				src="#video1" 
+				width="6" 
+				height="3.375" 
+				rotation="-90 0 0" 
+				position='4.5 0 1.25' 
+				transparent='true'>
+			</a-video>
 
-      <video id="video" loop="true" src="video1.mp4" webkit-playsinline>
+		</a-marker>
 
-   </a-assets>
-
-   <a-marker preset='kanji' markerhandler emitevents="true" id="hiroMarker">
-
-
-    <a-entity id="AR-Object01" (info about this object)></a-entity>
-    <a-entity id="AR-Object02" (info about this object)></a-entity>
-
-    <a-video id="videoScreen" src="#video" width="4" height="2.25" rotation="-90 0 0" position='3 0 3' autoplay="true"></a-video>
-
-
-   </a-marker>
-
-<a-entity camera></a-entity>
-
-  </a-scene>
-
+		<a-entity camera></a-entity>
+	</a-scene>
 </body>
 </html>
