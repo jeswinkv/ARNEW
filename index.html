@@ -28,7 +28,16 @@
 		</a-assets>
 		
 
-		<a-marker preset='kanji' id='marker-hiro' registerevents cursor="rayOrigin: mouse" emitevents="true" smooth="true">
+		<a-marker 
+			preset='kanji' 
+			id='marker-hiro' 
+			registerevents 
+			cursor="rayOrigin: mouse" 
+			emitevents="true" 
+			smooth="true" 
+			smoothCount="10" 
+			smoothTolerance="0.01" 
+			smoothThreshold="5">
 		
 			<a-text color="#FFF" 
 				  position='1.5 0 -3' 
