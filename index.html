@@ -14,7 +14,7 @@
 
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
-			this.tick = AFRAME.utils.throttleTick(this.tick, 500, this);
+			this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
 		},
 		tick: function() {
 			console.log(this.markerVisible);
