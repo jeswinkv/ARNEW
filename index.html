@@ -11,22 +11,12 @@
 			var arentity1 =  document.querySelector('#entity1');
 			//arentity1.onclick = function() { alert('blah'); };
 			arentity1.addEventListener('click', function (evt) { console.log('clicked'); document.querySelector('#video1').play(); });
-			
-			/*var m = document.querySelector("#kanjiMarker");
-			m.addEventListener("markerFound", (e)=>{
-			   console.log("found")
-			});			
-			m.addEventListener("markerLost", (e)=>{
-			   console.log("lost");
-			   document.querySelector('#video1').pause();
-			});*/
+
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
 		},
 		tick: function() {
-			console.log("tick called");
-			console.log("found"+this.marker);
-			console.log("found"+this.marker.object3D.visible);
+
 		   if (!this.marker) return;
 		   if (this.marker.object3D.visible) {
 			  if (!this.markerVisible) {
@@ -39,6 +29,7 @@
 				 // lost sight of the marker
 				 this.markerVisible = false;
 				 console.log("lost");
+				 document.querySelector('#video1').pause();
 			  }
 		   }
 		}		
