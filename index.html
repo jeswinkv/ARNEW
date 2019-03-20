@@ -11,7 +11,12 @@
 			var arentity1 =  document.querySelector('#entity1');
 			//arentity1.onclick = function() { alert('blah'); };
 			arentity1.addEventListener('click', function (evt) { console.log('clicked'); document.querySelector('#video1').play(); });
-		
+			
+			var m = document.querySelector("a-marker");
+			m.addEventListener("markerLost", (e)=>{
+			   console.log("lost");
+			   document.querySelector('#video1').pause();
+			});			
 		}
 	});
 </script>
