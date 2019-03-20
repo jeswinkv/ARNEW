@@ -17,8 +17,6 @@
 			this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
 		},
 		tick: function() {
-			console.log(this.markerVisible);
-			console.log(this.marker.object3D.visible);
 		   if (!this.marker) return;
 		   if (this.marker.object3D.visible) {
 			  if (!this.markerVisible) {
@@ -27,8 +25,7 @@
 				 console.log("found");
 			  }
 		   } else {
-			console.log("here");
-			  if (this.markerVisbile) {
+			  if (this.markerVisible) {
 				 // lost sight of the marker
 				 this.markerVisible = false;
 				 console.log("lost");
