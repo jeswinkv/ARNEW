@@ -12,7 +12,10 @@
 			//arentity1.onclick = function() { alert('blah'); };
 			arentity1.addEventListener('click', function (evt) { console.log('clicked'); document.querySelector('#video1').play(); });
 			
-			var m = document.querySelector("a-marker");
+			var m = document.querySelector("#kanjiMarker");
+			m.addEventListener("markerFound", (e)=>{
+			   console.log("found")
+			});			
 			m.addEventListener("markerLost", (e)=>{
 			   console.log("lost");
 			   document.querySelector('#video1').pause();
@@ -35,7 +38,7 @@
 
 		<a-marker 
 			preset='kanji' 
-			id='marker-hiro' 
+			id='kanjiMarker' 
 			registerevents 
 			cursor="rayOrigin: mouse" 
 			emitevents="true" 
