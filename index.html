@@ -24,6 +24,9 @@
 			this.markerVisible = false;
 		},
 		tick: function() {
+			console.log("tick called");
+			console.log("found"+this.marker);
+			console.log("found"+this.marker.object3D.visible);
 		   if (!this.marker) return;
 		   if (this.marker.object3D.visible) {
 			  if (!this.markerVisible) {
