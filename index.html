@@ -14,7 +14,7 @@
 
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
-			this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
+			//this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -32,6 +32,25 @@
 				 document.querySelector('#video1').pause();
 			  }
 		   }
+		   
+		 if (this.el.object3D.visible) {
+		   this.target.setAttribute('visible', 'true')
+		   if(this.prevPosition) {
+			 this.target.object3D.position.lerp(this.prevPosition, 0.1)
+			 let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
+			 this.target.object3D.rotation.setFromVector3(rot)
+		   } else {
+			 this.target.setAttribute('position', this.el.getAttribute('position'))
+			 this.target.setAttribute('rotation', this.el.getAttribute('rotation'))
+		   }
+		   this.prevPosition = this.el.object3D.position
+		   this.prevRotation = this.el.object3D.rotation
+
+		  } else {
+		   this.target.setAttribute('visible', 'false')
+			this.prevPosition = null;
+			this.prevRotation = null;
+		  }		   
 		}		
 	});
 </script>
@@ -108,4 +127,4 @@
 		<a-entity camera></a-entity>
 	</a-scene>
 </body>
-</html>
+</html>	
