@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<!-- Register an aframe component that allows reacting to marker events -->
+<script>
+	AFRAME.registerComponent('registerevents', {
+		init: function () {
+			var marker = this.el;
+			this.marker = document.querySelector("a-marker");
+			this.markerVisible = false;
+		},
+		tick: function() {
+		   if (!this.marker) return;
+		   if (this.marker.object3D.visible) {
+			  if (!this.markerVisible) {
+				 // marker detected
+				 this.markerVisible = true;
+				 console.log("found");
+				 document.querySelector('#video1').play();
+			  }
+		   } else {
+			  if (this.markerVisible) {
+				 // lost sight of the marker
+				 this.markerVisible = false;
+				 console.log("lost");
+				 document.querySelector('#video1').pause();
+			  }
+		   }
+		}		
+	});
+</script>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+
+	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
+	
+		<a-assets>
+			<video id="video1" src="video1.mp4"></video>
+		</a-assets>
+		
+
+		<a-marker 
+			preset='kanji' 
+			id='kanjiMarker' 
+			registerevents 
+			cursor="fuse: true; rayOrigin: mouse" 
+			emitevents="true" 
+			smooth="true" 
+			smoothCount="10" 
+			smoothTolerance="0.01" 
+			smoothThreshold="5">
+		
+			<a-video 
+				id="videoScreen" 
+				src="#video1" 
+				width="7" 
+				height="3.9375" 
+				rotation="-90 0 0" 
+				position='0 0 0' 
+				transparent='true'>
+			</a-video>
+
+		</a-marker>
+
+		<a-entity camera></a-entity>
+	</a-scene>
+</body>
+</html>
