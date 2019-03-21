@@ -13,9 +13,9 @@
 			this.markerVisible = false;
 
 			//smoothening
-			this.target = document.querySelector('#videoScreen');
+			/*this.target = document.querySelector('#videoScreen');
 			this.prevPosition = null;
-			this.prevRotation = null;			
+			this.prevRotation = null;	*/		
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -28,7 +28,7 @@
 			  }
 
 			  //Smoothening
-			  this.target.setAttribute('visible', 'true');
+			  /*this.target.setAttribute('visible', 'true');
 			  if(this.prevPosition) {
 				 this.target.object3D.position.lerp(this.prevPosition, 0.1)
 				 let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
@@ -38,7 +38,7 @@
 				 this.target.setAttribute('rotation', this.marker.getAttribute('rotation'))
 			   }
 			   this.prevPosition = this.marker.object3D.position
-			   this.prevRotation = this.marker.object3D.rotation
+			   this.prevRotation = this.marker.object3D.rotation*/
 			  
 		   } else {
 			  if (this.markerVisible) {
@@ -48,9 +48,9 @@
 				 document.querySelector('#video1').pause();
 			  }
 				//smootheninig
-				this.target.setAttribute('visible', 'false');
+				/*this.target.setAttribute('visible', 'false');
 				this.prevPosition = null;
-				this.prevRotation = null;			  
+				this.prevRotation = null;*/			  
 		   }
 		}		
 	});
