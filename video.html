@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
 <!-- Register an aframe component that allows reacting to marker events -->
@@ -8,6 +12,11 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
+
+			//smoothening
+			this.target = document.querySelector('#videoScreen');
+			this.prevPosition = null;
+			this.prevRotation = null;			
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -18,6 +27,20 @@
 				 console.log("found");
 				 document.querySelector('#video1').play();
 			  }
+
+			  //Smoothening
+			  this.target.setAttribute('visible', 'true');
+			  if(this.prevPosition) {
+				 this.target.object3D.position.lerp(this.prevPosition, 0.1)
+				 let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
+				 this.target.object3D.rotation.setFromVector3(rot)
+			   } else {
+				 this.target.setAttribute('position', this.marker.getAttribute('position'))
+				 this.target.setAttribute('rotation', this.marker.getAttribute('rotation'))
+			   }
+			   this.prevPosition = this.marker.object3D.position
+			   this.prevRotation = this.marker.object3D.rotation
+			  
 		   } else {
 			  if (this.markerVisible) {
 				 // lost sight of the marker
@@ -25,11 +48,15 @@
 				 console.log("lost");
 				 document.querySelector('#video1').pause();
 			  }
+				//smootheninig
+				this.target.setAttribute('visible', 'false');
+				this.prevPosition = null;
+				this.prevRotation = null;			  
 		   }
 		}		
 	});
 </script>
-
+</head>
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 
 	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
@@ -51,7 +78,9 @@
 			smoothThreshold="5">
 		
 			<a-video 
-				id="videoScreen" 
+				id="videoScreen"
+				playsinline 
+				webkit-playsinline
 				src="#video1" 
 				width="7" 
 				height="3.9375" 
@@ -63,6 +92,10 @@
 		</a-marker>
 
 		<a-entity camera></a-entity>
+
+		<!-- This is a pretty good default lighting setup, but feel free to tweak as needed. -->
+		<a-light type="ambient" color="#bbb" intensity="0.8"></a-light>
+		<a-light type="directional" intensity="0.6" color="#ffffff" position="0.25 0.5 1"></a-light>		
 	</a-scene>
 </body>
 </html>
