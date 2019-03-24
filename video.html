@@ -11,11 +11,6 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
-
-			//smoothening
-			/*this.target = document.querySelector('#videoScreen');
-			this.prevPosition = null;
-			this.prevRotation = null;	*/		
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -26,20 +21,6 @@
 				 console.log("found");
 				 document.querySelector('#video1').play();
 			  }
-
-			  //Smoothening
-			  /*this.target.setAttribute('visible', 'true');
-			  if(this.prevPosition) {
-				 this.target.object3D.position.lerp(this.prevPosition, 0.1)
-				 let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
-				 this.target.object3D.rotation.setFromVector3(rot)
-			   } else {
-				 this.target.setAttribute('position', this.marker.getAttribute('position'))
-				 this.target.setAttribute('rotation', this.marker.getAttribute('rotation'))
-			   }
-			   this.prevPosition = this.marker.object3D.position
-			   this.prevRotation = this.marker.object3D.rotation*/
-			  
 		   } else {
 			  if (this.markerVisible) {
 				 // lost sight of the marker
@@ -47,10 +28,6 @@
 				 console.log("lost");
 				 document.querySelector('#video1').pause();
 			  }
-				//smootheninig
-				/*this.target.setAttribute('visible', 'false');
-				this.prevPosition = null;
-				this.prevRotation = null;*/			  
 		   }
 		}		
 	});
@@ -62,6 +39,7 @@
 	
 		<a-assets>
 			<video id="video1" src="video1.mp4"></video>
+			<video id="video2" src="video2.mp4"></video>
 		</a-assets>
 		
 
@@ -70,7 +48,7 @@
 			preset="pattern"
 			patternUrl='https://jeswinkv.github.io/ARNEW/traveller.patt'
 			url='https://jeswinkv.github.io/ARNEW/traveller.patt'
-			id='kanjiMarker' 
+			id='travellerMarker' 
 			registerevents 
 			cursor="fuse: true; rayOrigin: mouse" 
 			emitevents="true" 
@@ -92,6 +70,36 @@
 			</a-video>
 
 		</a-marker>
+
+
+		<a-marker 
+			type='pattern'
+			preset="pattern"
+			patternUrl='https://jeswinkv.github.io/ARNEW/cargo.patt'
+			url='https://jeswinkv.github.io/ARNEW/cargo.patt'
+			id='cargoMarker' 
+			registerevents 
+			cursor="fuse: true; rayOrigin: mouse" 
+			emitevents="true" 
+			smooth="true" 
+			smoothCount="10" 
+			smoothTolerance="0.01" 
+			smoothThreshold="5">
+		
+			<a-video 
+				id="cargoVideoScreen"
+				playsinline 
+				webkit-playsinline
+				src="#video2" 
+				width="7" 
+				height="3.9375" 
+				rotation="-90 0 0" 
+				position='0 0 0' 
+				transparent='true'>
+			</a-video>
+
+		</a-marker>
+
 
 		<a-entity camera></a-entity>
 
