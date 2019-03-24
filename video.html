@@ -6,10 +6,10 @@
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
 <!-- Register an aframe component that allows reacting to marker events -->
 <script>
-	AFRAME.registerComponent('registerevents', {
+	AFRAME.registerComponent('registerTravellerEvents', {
 		init: function () {
 			var marker = this.el;
-			this.marker = document.querySelector("a-marker");
+			this.marker = document.querySelector("#travellerMarker");
 			this.markerVisible = false;
 		},
 		tick: function() {
@@ -31,6 +31,32 @@
 		   }
 		}		
 	});
+	
+	AFRAME.registerComponent('registerCargoEvents', {
+		init: function () {
+			var marker = this.el;
+			this.marker = document.querySelector("#cargoMarker");
+			this.markerVisible = false;
+		},
+		tick: function() {
+		   if (!this.marker) return;
+		   if (this.marker.object3D.visible) {
+			  if (!this.markerVisible) {
+				 // marker detected
+				 this.markerVisible = true;
+				 console.log("found");
+				 document.querySelector('#video2').play();
+			  }
+		   } else {
+			  if (this.markerVisible) {
+				 // lost sight of the marker
+				 this.markerVisible = false;
+				 console.log("lost");
+				 document.querySelector('#video2').pause();
+			  }
+		   }
+		}		
+	});	
 </script>
 </head>
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
@@ -49,7 +75,7 @@
 			patternUrl='https://jeswinkv.github.io/ARNEW/traveller.patt'
 			url='https://jeswinkv.github.io/ARNEW/traveller.patt'
 			id='travellerMarker' 
-			registerevents 
+			registerTravellerEvents 
 			cursor="fuse: true; rayOrigin: mouse" 
 			emitevents="true" 
 			smooth="true" 
@@ -78,7 +104,7 @@
 			patternUrl='https://jeswinkv.github.io/ARNEW/cargo.patt'
 			url='https://jeswinkv.github.io/ARNEW/cargo.patt'
 			id='cargoMarker' 
-			registerevents 
+			registerCargoEvents 
 			cursor="fuse: true; rayOrigin: mouse" 
 			emitevents="true" 
 			smooth="true" 
