@@ -40,7 +40,7 @@
 	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
 	
 		<a-assets>
-			<video id="video1" src="video1.mp4" crossorigin="anonymous" playsinline autoplay ></video>
+			<video id="video1" src="video1.mp4" crossorigin="anonymous" playsinline autoplay muted></video>
 		</a-assets>
 		
 
@@ -72,13 +72,15 @@
 				transparent='true'>
 			</a-video>
 			
-			<div id="playoverlay">
-			  <button id="play-button">Play / Pause</button>
-			</div>			
+	
 		</a-marker>
 
 		<a-entity camera></a-entity>
 
 	</a-scene>
+
+	<div id="playoverlay">
+	  <button id="play-button">Play / Pause</button>
+	</div>			
 </body>
 </html>
