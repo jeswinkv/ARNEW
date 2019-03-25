@@ -13,6 +13,8 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
+			var video = document.querySelector('#video');
+			window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);			
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -78,21 +80,5 @@
 		<a-entity camera></a-entity>
 
 	</a-scene>
-
-    <script>
-      (function() {
-        var video = document.querySelector('#video');
-        window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);
-
-        var playButton = document.querySelector('#kanjiMarker');
-        playButton.addEventListener('click', function(e) {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      })();
-    </script>	
 </body>
 </html>
