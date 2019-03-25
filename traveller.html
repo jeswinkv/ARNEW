@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<script src="http://bfred-it.github.io/iphone-inline-video/dist/iphone-inline-video.js"></script>
 <!-- Register an aframe component that allows reacting to marker events -->
 <script>
 	AFRAME.registerComponent('registerevents', {
@@ -40,7 +41,7 @@
 	
 		<a-assets>
 			<!--<video id="video1" src="video1.mp4" crossorigin="anonymous" playsinline autoplay muted></video> -->
-			<video id="video1" src="https://www.youtube.com/watch?v=iwzzQ1pqoZY" crossorigin="anonymous" playsinline autoplay muted></video>
+			<video id="video1" src="video1.mp4" crossorigin="anonymous" autoplay crossorigin playsinline></video>
 		</a-assets>
 		
 
@@ -77,5 +78,21 @@
 		<a-entity camera></a-entity>
 
 	</a-scene>
+
+    <script>
+      (function() {
+        var video = document.querySelector('#video');
+        window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);
+
+        var playButton = document.querySelector('#kanjiMarker');
+        playButton.addEventListener('click', function(e) {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      })();
+    </script>	
 </body>
 </html>
