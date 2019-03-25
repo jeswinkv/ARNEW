@@ -13,6 +13,8 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
+			var video = document.querySelector('#video');
+			window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -33,9 +35,19 @@
 		   }
 		}		
 	});
+	
+	function clickPlay(){
+		alert('play');
+		var video = document.querySelector('#video');
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+          }	
+	}
 </script>
 </head>
-<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;' onload="clickPlay();">
 
 	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
 	
