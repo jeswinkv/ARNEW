@@ -13,8 +13,6 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
-			var video = document.querySelector('#video1');
-			window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);			
 		},
 		tick: function() {
 		   if (!this.marker) return;
@@ -42,8 +40,7 @@
 	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
 	
 		<a-assets>
-			<!--<video id="video1" src="video1.mp4" crossorigin="anonymous" playsinline autoplay muted></video> -->
-			<video id="video1" src="video1.mp4" crossorigin="anonymous" autoplay playsinline></video>
+			<video id="video1" src="video1.mp4" crossorigin="anonymous" playsinline autoplay muted></video>
 		</a-assets>
 		
 
