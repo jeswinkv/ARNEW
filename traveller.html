@@ -13,7 +13,7 @@
 			var marker = this.el;
 			this.marker = document.querySelector("a-marker");
 			this.markerVisible = false;
-			var video = document.querySelector('#video');
+			var video = document.querySelector('#video1');
 			window.makeVideoPlayableInline(video, /* mute necessary for autoplay*/ false);
 		},
 		tick: function() {
@@ -38,7 +38,7 @@
 	
 	function clickPlay(){
 		alert('play');
-		var video = document.querySelector('#video');
+		var video = document.querySelector('#video1');
           if (video.paused) {
             video.play();
           } else {
@@ -91,8 +91,5 @@
 
 	</a-scene>
 
-	<div id="playoverlay">
-	  <button id="play-button">Play / Pause</button>
-	</div>			
 </body>
 </html>
